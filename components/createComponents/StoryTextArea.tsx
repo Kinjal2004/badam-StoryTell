@@ -30,7 +30,7 @@ const StoryTextArea: React.FC<StoryTextAreaProps> = ({
       <h1
         onMouseEnter={handleHover}
         onMouseLeave={handleHoverOut}
-        className="text-4xl font-bold mb-4 sm:mb-12 transition duration-300 ease-in-out bg-gradient-to-r from-purple-900 to-indigo-900  text-transparent bg-clip-text"
+        className="text-4xl font-bold mb-4 sm:mb-12 transition duration-300 ease-in-out bg-gradient-to-r from-purple-900 to-indigo-900  text-transparent bg-clip-text text-center" // Added text-center for centering
       >
         Create Your Story
       </h1>

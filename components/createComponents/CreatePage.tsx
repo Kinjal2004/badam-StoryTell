@@ -15,13 +15,13 @@ const CreatePage: React.FC = () => {
     backgroundImage: `url("https://img.freepik.com/premium-photo/space-planet-landscape-background-generative-ai_983314-2054.jpg")`,
     backgroundSize: "cover",
     backgroundPosition: "center",
-    opacity: "50%",
     minHeight: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
     filter: "brightness(120%)",
+    padding: "20px", // Adding some padding for smaller screens
   };
 
   const handleSubmit = () => {
@@ -30,8 +30,12 @@ const CreatePage: React.FC = () => {
 
   return (
     <div style={backgroundImageStyle}>
-      <StoryTextArea story={story} onStoryChange={handleStoryChange} />
-      <SubmitButton onClick={handleSubmit} />
+      <div style={{ maxWidth: "600px", width: "90%" }}>
+        {" "}
+        {/* Adjust the width for smaller screens */}
+        <StoryTextArea story={story} onStoryChange={handleStoryChange} />
+        <SubmitButton onClick={handleSubmit} />
+      </div>
     </div>
   );
 };
