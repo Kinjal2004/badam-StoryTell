@@ -6,14 +6,15 @@ interface Post {
   user: string;
   content: string;
   likes: number;
+  tags: string[];
 }
 
 interface LeaderboardProps {
-  posts: Post[];
+  stories: Post[];
 }
 
-const Leaderboard: React.FC<LeaderboardProps> = ({ posts }) => {
-  const sortedPosts = [...posts].sort((a, b) => b.likes - a.likes);
+const Leaderboard: React.FC<LeaderboardProps> = ({ stories }) => {
+  const sortedPosts = [...stories].sort((a, b) => b.likes - a.likes);
 
   return (
     <div className=" bg-gradient-to-l from-purple-400 to-indigo-300  p-6 rounded-lg shadow-md">

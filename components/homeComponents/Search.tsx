@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState } from "react";
 
 interface Post {
@@ -6,23 +6,25 @@ interface Post {
   user: string;
   content: string;
   likes: number;
+  tags: string[];
 }
 
 interface SearchProps {
-  posts: Post[];
+  stories: Post[];
 }
 
-const Search: React.FC<SearchProps> = ({ posts }) => {
+const Search: React.FC<SearchProps> = ({ stories }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredPosts = posts.filter(
+  const filteredPosts = stories.filter(
     (post) =>
       post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.user.toLowerCase().includes(searchTerm.toLowerCase())
+      post.user.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (
@@ -42,6 +44,16 @@ const Search: React.FC<SearchProps> = ({ posts }) => {
                 <p className="text-lg font-semibold">{post.user}</p>
                 <p className="text-gray-600 mt-2">{post.content}</p>
                 <p className="text-gray-500 mt-2">Likes: {post.likes}</p>
+                <div className="flex flex-wrap mt-2">
+                  {post.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}

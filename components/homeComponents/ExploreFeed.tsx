@@ -10,15 +10,11 @@ interface Post {
 }
 
 interface ExploreFeedProps {
-  posts: Post[];
-  handleLike: (postId: number) => void;
+  stories: Post[];
 }
 
-const ExploreFeed: React.FC = () => {
-  const [posts, setPosts] = useState<Post[]>([
-    { id: 1, user: "User1", content: "Post 1", likes: 10, tags: ["Fantasy"] },
-    { id: 2, user: "User2", content: "Post 2", likes: 15, tags: ["Horror"] },
-  ]);
+const ExploreFeed: React.FC<ExploreFeedProps> = ({stories}) => {
+  const [posts, setPosts] = useState<Post[]>(stories);
 
   const handleLike = (postId: number) => {
     const updatedPosts = posts.map((post) =>
@@ -41,7 +37,7 @@ const ExploreFeed: React.FC = () => {
               <p className="text-gray-500 mt-2">Likes: {post.likes}</p>
               <div className="flex justify-between mt-4">
                 <div>
-                  {post.tags.map((tag, index) => (
+                  {post.tags.map((index,tag) => (
                     <span
                       key={index}
                       className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
