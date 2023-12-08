@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import StoryTextArea from "./StoryTextArea";
 import SubmitButton from "./SubmitButton";
@@ -10,19 +10,26 @@ const CreatePage: React.FC = () => {
     setStory(value);
   };
 
+  const backgroundImageStyle = {
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
+    backgroundImage: `url("https://img.freepik.com/premium-photo/space-planet-landscape-background-generative-ai_983314-2054.jpg")`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    opacity: "50%",
+    minHeight: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    filter: "brightness(120%)",
+  };
+
   const handleSubmit = () => {
     console.log("Submitted story:", story);
   };
 
   return (
-    <div
-      className="bg-cover bg-center min-h-screen flex justify-center items-center flex-col"
-      style={{
-        backgroundImage:
-          "https://png.pngtree.com/thumb_back/fh260/background/20230411/pngtree-meniscus-fire-cloud-imagination-background-image_2190874.jpg",
-      }}
-    >
-      <h1 className="text-4xl font-bold mb-6">Create Your Story</h1>
+    <div style={backgroundImageStyle}>
       <StoryTextArea story={story} onStoryChange={handleStoryChange} />
       <SubmitButton onClick={handleSubmit} />
     </div>
