@@ -14,6 +14,25 @@ const CreatePage: React.FC = () => {
     setStory(value);
   };
 
+  const handleTitleChange = (value: string) => {
+    setTitle(value);
+  };
+
+  const handleGenreChange = (selectedGenre: string) => {
+    const genreIndex = genres.indexOf(selectedGenre);
+    let updatedGenres: string[];
+
+    if (genreIndex === -1) {
+      updatedGenres = [...genres, selectedGenre];
+      toast.success(`${selectedGenre} tag added`, { className: "green-toast" });
+    } else {
+      updatedGenres = genres.filter((genre) => genre !== selectedGenre);
+      toast.error(`${selectedGenre} tag removed`, { className: "red-toast" });
+    }
+
+    setGenres(updatedGenres);
+  };
+
   const handleSubmit = () => {
     console.log("Submitted Title:", title);
     console.log("Submitted Story:", story);
@@ -21,9 +40,15 @@ const CreatePage: React.FC = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center">
-      <div style={{ maxWidth: "600px", width: "90%" }}>
-        {" "}
+    <div className="min-h-screen bg-gradient-to-r from-purple-400 to-indigo-300 flex justify-center items-center">
+      <div className="max-w-lg w-full mx-4 p-6 bg-white rounded-lg shadow-lg">
+        <input
+          type="text"
+          placeholder="Story Title"
+          value={title}
+          onChange={(e) => handleTitleChange(e.target.value)}
+          className=" bg-black text-white mt-20 w-full mb-4 p-2 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+        />
         <StoryTextArea story={story} onStoryChange={handleStoryChange} />
         <div className="mb-4">
           <p className="mb-2">Genres:</p>

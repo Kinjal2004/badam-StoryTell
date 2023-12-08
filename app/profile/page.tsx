@@ -5,21 +5,12 @@ const Chart = dynamic(() => import("@/components/profileComponents/Chart"), {
 });
 
 const data = [
-<<<<<<< HEAD
-  { name1: "Story 1", likes: 17 },
-  { name1: "Story 2", likes: 33 },
-  { name1: "Story 3", likes: 21 },
-  { name1: "Story 4", likes: 11 },
-  { name1: "Story 5", likes: 5 },
+  { name: "Story 1", likes: 17 },
+  { name: "Story 2", likes: 33 },
+  { name: "Story 3", likes: 21 },
+  { name: "Story 4", likes: 11 },
+  { name: "Story 5", likes: 5 },
 ];
-=======
-    {name : 'Story 1', likes: 17},
-    {name : 'Story 2', likes: 33},    
-    {name : 'Story 3', likes: 21},
-    {name : 'Story 4', likes: 11},
-    {name : 'Story 5', likes: 5}
-]
->>>>>>> 458a45acdf62d317a97902904ae4a76ab7e261c5
 
 const Dashboard: React.FC = () => {
   return (
