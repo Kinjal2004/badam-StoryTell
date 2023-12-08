@@ -17,7 +17,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ stories }) => {
   const sortedPosts = [...stories].sort((a, b) => b.likes - a.likes);
 
   return (
-    <div className=" bg-gradient-to-l from-purple-400 to-indigo-300  p-6 rounded-lg shadow-md">
+    <div className="mt-5 bg-gradient-to-l from-purple-400 to-indigo-300  p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Leaderboard</h2>
       <div className="divide-y divide-gray-300">
         {sortedPosts.map((post, index) => (

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 
 interface Post {
@@ -24,7 +24,9 @@ const Search: React.FC<SearchProps> = ({ stories }) => {
     (post) =>
       post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.user.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      post.tags.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
+      )
   );
 
   return (

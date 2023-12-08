@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import ExploreFeed from "./ExploreFeed";
 import Search from "./Search";
@@ -17,7 +17,6 @@ interface Post {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ postData }) => {
-
   return (
     <div>
       <Search stories={postData} />
