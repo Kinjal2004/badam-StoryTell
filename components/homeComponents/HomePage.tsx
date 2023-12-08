@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import ExploreFeed from "./ExploreFeed";
-import Search from "./Search";
 import Leaderboard from "./Leaderboard";
 
 interface HomePageProps {
@@ -14,12 +13,12 @@ interface Post {
   content: string;
   likes: number;
   tags: string[];
+  liked: boolean;
 }
 
 const HomePage: React.FC<HomePageProps> = ({ postData }) => {
   return (
     <div>
-      <Search stories={postData} />
       <ExploreFeed stories={postData} />
       <Leaderboard stories={postData} />
     </div>

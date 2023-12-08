@@ -7,6 +7,7 @@ interface Post {
   content: string;
   likes: number;
   tags: string[];
+  liked: boolean;
 }
 
 interface LeaderboardProps {
