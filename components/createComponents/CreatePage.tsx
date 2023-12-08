@@ -26,7 +26,13 @@ const CreatePage: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      const selectedGenre = genres[0] || "";
+      if (!title || !story || genres.length === 0) {
+        console.error(
+          "Error: Title, story, or genres is empty. Cannot submit."
+        );
+        return;
+      }
+
       const response = await axios.post("./api/createStory", {
         title: title,
         story: story,
@@ -38,6 +44,10 @@ const CreatePage: React.FC = () => {
       console.log("Selected Genre:", selectedGenre);
 
       console.log("Server Response:", response.data);
+
+      setTitle("");
+      setStory("");
+      setGenres([]);
     } catch (err) {
       console.error("Error:", err);
     }
