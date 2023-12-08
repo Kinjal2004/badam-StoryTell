@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
         <nav className={`sm:flex ${isOpen ? "block" : "hidden"} mt-14 sm:mt-0`}>
           <ul className="sm:flex sm:space-x-6">
             <li>
-              <Link legacyBehavior href="/home" passHref>
+              <Link legacyBehavior href="/" passHref>
                 <a className="text-white hover:text-gray-300 transition duration-300">
                   Home
                 </a>
