@@ -1,11 +1,10 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { SessionProvider, useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data, status } = useSession();
 
   return (
     <header className="py-3 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg rounded-b-lg fixed top-0 left-0 right-0 ">
@@ -43,7 +42,7 @@ const Navbar: React.FC = () => {
         <nav className={`sm:flex ${isOpen ? "block" : "hidden"} mt-14 sm:mt-0`}>
           <ul className="sm:flex sm:space-x-6">
             <li>
-              <Link legacyBehavior href="/" passHref>
+              <Link legacyBehavior href="/home" passHref>
                 <a className="text-white hover:text-gray-300 transition duration-300">
                   Home
                 </a>
@@ -65,11 +64,7 @@ const Navbar: React.FC = () => {
             </li>
             <div>
               {status === "authenticated" ? (
-                <div>
-                  <h1>Hi {data.user.name}</h1>
-                  <img src={data.user.image} alt={`${data.user.name} photo`} />
-                  <button onClick={() => signOut()}>Sign out</button>
-                </div>
+                <button onClick={() => signOut()}>Sign out</button>
               ) : (
                 <button onClick={() => signIn("google")}>
                   Sign in with Google
