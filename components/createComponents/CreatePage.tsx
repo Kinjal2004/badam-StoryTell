@@ -4,6 +4,7 @@ import StoryTextArea from "./StoryTextArea";
 import SubmitButton from "./SubmitButton";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const CreatePage: React.FC = () => {
   const [story, setStory] = useState<string>("");
@@ -33,10 +34,19 @@ const CreatePage: React.FC = () => {
     setGenres(updatedGenres);
   };
 
-  const handleSubmit = () => {
-    console.log("Submitted Title:", title);
-    console.log("Submitted Story:", story);
-    console.log("Selected Genres:", genres);
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post("./api/createStory", {
+        params: { title },
+      });
+
+      console.log("Server Response:", response.data);
+      console.log("Submitted Title:", title);
+      console.log("Submitted Story:", story);
+      console.log("Selected Genres:", genres);
+    } catch (err) {
+      console.error("Error:", err);
+    }
   };
 
   return (
