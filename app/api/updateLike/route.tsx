@@ -13,8 +13,10 @@ export async function PUT(req: Request) {
       where: {
         id: data.id,
       },
-      likes: {
-        increment: 1,
+      data: {
+        likes: {
+          increment: 1,
+        },
       },
     });
     return NextResponse.json({ status: 200 });
