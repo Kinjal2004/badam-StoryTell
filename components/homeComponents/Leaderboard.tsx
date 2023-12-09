@@ -27,7 +27,11 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ stories }) => {
             <div className="flex items-center space-x-4">
               <span className="font-semibold">{index + 1}.</span>
               <div>
-                <p className="text-lg font-semibold">{post.author}</p>
+                <span className="flex items-center">
+                  <p className="text-lg font-semibold mr-2">{post.title}</p>
+                  <p className="text-lg font-semibold mr-2">by</p>
+                  <p className="text-lg font-semibold">{post.author}</p>
+                </span>
                 <p className="text-gray-600">Likes: {post.likes}</p>
               </div>
             </div>
