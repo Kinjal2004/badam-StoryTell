@@ -91,7 +91,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
   );
 
   return (
-    <div className="s bg-gradient-to-r from-orange-400 to-blue-300">
+    <div className=" bg-white">
       <h2 className="mt-5 py-14 text-3xl font-bold text-center">
         Explore Feed
       </h2>
@@ -101,7 +101,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
           placeholder="Search..."
           value={searchTerm}
           onChange={handleSearch}
-          className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:border-blue-500"
+          className="border border-gray-300  rounded-md py-2 px-4 w-full focus:outline-none focus:border-blue-500"
         />
       </div>
 
@@ -110,7 +110,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
           filteredPosts.map((post) => (
             <div
               key={post.id}
-              className={`border rounded-lg overflow-hidden transform transition-transform hover:scale-110`}
+              className={`border border-blue-300 rounded-lg overflow-hidden transform transition-transform hover:scale-110`}
               onClick={() => handleClick(post.id)}
             >
               <div className="p-4">
@@ -131,7 +131,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
                         post.liked ? "opacity-50 cursor-not-allowed" : ""
                       }`}
                     >
-                      {post.liked ? "Liked" : <FaThumbsUp />}
+                      {post.liked ? <FaThumbsUp /> : <FaThumbsUp />}
                     </button>
                     <button
                       onClick={(event) => handleDislike(post.id)(event)}
@@ -140,7 +140,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
                         !post.liked ? "opacity-50 cursor-not-allowed" : ""
                       }`}
                     >
-                      {post.liked ? <FaThumbsDown /> : "Disliked"}
+                      {!post.liked ? <FaThumbsDown /> : <FaThumbsDown />}
                     </button>
                   </div>
                 </div>
