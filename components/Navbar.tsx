@@ -1,9 +1,11 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data, status } = useSession();
 
   return (
     <header className="py-3 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg rounded-b-lg fixed top-0 left-0 right-0 ">
@@ -61,6 +63,15 @@ const Navbar: React.FC = () => {
                 </a>
               </Link>
             </li>
+            <div>
+              {status === "authenticated" ? (
+                <button onClick={() => signOut()}>Sign out</button>
+              ) : (
+                <button onClick={() => signIn("google")}>
+                  Sign in with Google
+                </button>
+              )}
+            </div>
           </ul>
         </nav>
       </div>

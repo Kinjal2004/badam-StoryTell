@@ -1,14 +1,12 @@
 import { FC } from "react";
 import { redirect } from "next/navigation";
-import {getStoryData} from "../stories"
+import { getStoryData } from "../stories";
 
 interface PageProps {
   params: { postId: string };
 }
 
-
-
-export default async function({ params }){
+export default async function ({ params }) {
   const postData = await getStoryData();
   const post = postData.find((post) => post.id === params.postId);
   if (!post) {
@@ -22,7 +20,7 @@ export default async function({ params }){
         <h1 className="text-2xl font-bold mb-4">Story Details</h1>
         <div className="border p-4 rounded-md shadow-md">
           <p className="mb-2">Title: {post.title}</p>
-          <p className="mb-2">Author: {post.author}</p>
+          <p className="mb-2">Autht.author: {posor}</p>
           <p className="mb-2">Content: {post.content}</p>
           <p className="mb-2">Likes: {post.likes}</p>
           <p className="mb-2">Tags: {post.tag}</p>
@@ -31,5 +29,4 @@ export default async function({ params }){
       </div>
     </div>
   );
-};
-
+}
