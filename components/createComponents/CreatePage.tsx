@@ -37,10 +37,12 @@ const CreatePage: React.FC = () => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post("./api/createStory", {
-        params: { title },
+        title,
+        story,
+        genres,
       });
 
-      console.log("Server Response:", response.data);
+      console.log("Server Response:", response);
       console.log("Submitted Title:", title);
       console.log("Submitted Story:", story);
       console.log("Selected Genres:", genres);
