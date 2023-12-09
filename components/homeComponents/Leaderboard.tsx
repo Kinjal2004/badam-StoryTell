@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { FaTrophy } from "react-icons/fa";
 
 interface Post {
   id: string;
@@ -19,25 +20,37 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ stories }) => {
   const sortedPosts = [...stories].sort((a, b) => b.likes - a.likes);
 
   return (
-    <div className="mt-5 bg-gradient-to-l from-purple-400 to-indigo-300  p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Leaderboard</h2>
-      <div className="divide-y divide-gray-300">
+    <div className="mt-5 p-6 rounded-lg shadow-md ">
+      <div className="flex justify-center items-center mb-4">
+        <h2 className="text-2xl text-white font-bold">Leaderboard</h2>
+      </div>
+      <div className="grid grid-cols-1 gap-4">
         {sortedPosts.map((post, index) => (
-          <div key={post.id} className="py-4 flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <span className="font-semibold">{index + 1}.</span>
-              <div>
-                <span className="flex items-center">
-                  <p className="text-lg font-semibold mr-2">{post.title}</p>
-                  <p className="text-lg font-semibold mr-2">by</p>
-                  <p className="text-lg font-semibold">{post.author}</p>
+          <div key={post.id} className="bg-gray-800 rounded-lg p-4">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-lg font-semibold text-white">
+                {index + 1}.
+              </span>
+              {(index === 0 || index === 1 || index === 2) && (
+                <span className="text-sm inline-flex items-center text-white">
+                  {index === 0 && <FaTrophy className="mr-1 text-yellow-400" />}
+                  {index === 1 && <FaTrophy className="mr-1 text-gray-300" />}
+                  {index === 2 && <FaTrophy className="mr-1 text-orange-500" />}
+                  Rank {index + 1}
                 </span>
-                <p className="text-gray-600">Likes: {post.likes}</p>
-              </div>
+              )}
+              {index > 2 && (
+                <span className="text-sm text-white">Rank {index + 1}</span>
+              )}
             </div>
-            <span className="bg-blue-500 text-white px-3 py-1 rounded-md text-sm">
-              Rank {index + 1}
-            </span>
+            <div className="flex flex-col">
+              <p className="text-lg text-white font-semibold mb-1">
+                {post.title}
+              </p>
+              <p className="text-sm text-gray-300">
+                by {post.author} - Likes: {post.likes}
+              </p>
+            </div>
           </div>
         ))}
       </div>

@@ -19,7 +19,7 @@ interface Post {
 
 const HomePage: React.FC<HomePageProps> = ({ postData }) => {
   return (
-    <div>
+    <div className="bg-gradient-to-r from-indigo-900 via-cyan-500 to-purple-700">
       <ExploreFeed stories={postData} />
       <Leaderboard stories={postData} />
     </div>

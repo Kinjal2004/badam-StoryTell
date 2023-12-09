@@ -92,8 +92,8 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
   );
 
   return (
-    <div className=" bg-white">
-      <h2 className="mt-5 py-14 text-3xl font-bold text-center">
+    <div className="arya">
+      <h2 className=" text-white mt-5 py-14 text-3xl font-bold text-center">
         Explore Feed
       </h2>
       <div className="w-[60vw] mb-4 mx-auto flex justify-center">
@@ -105,13 +105,22 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
           className="border border-gray-300  rounded-md py-2 px-4 w-full focus:outline-none focus:border-blue-500"
         />
       </div>
-
+      <div className="text-center">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrEOhvWmaylNLRBQ7IvyoJh22IUBjRde8AnQ&usqp=CAU" // Replace with your cute avatar image
+          alt="Cute Avatar"
+          className="w-24 h-24 mx-auto mb-4 rounded-full"
+        />
+        <h1 className="text-black text-xl  mb-2">
+          Hey there! Move to Profile Or Create Page and Sign in
+        </h1>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-7">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => (
             <div
               key={post.id}
-              className={`border border-blue-300 rounded-lg overflow-hidden transform transition-transform hover:scale-110`}
+              className={` bg-white border border-blue-300 rounded-lg overflow-hidden transform transition-transform hover:scale-110`}
               onClick={() => handleClick(post.id)}
             >
               <div className="p-4">

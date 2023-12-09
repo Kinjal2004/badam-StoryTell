@@ -17,8 +17,8 @@ export default function Navbar(context: any) {
   }, [context]);
 
   return (
-    <header className="py-3 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg rounded-b-lg fixed top-0 left-0 right-0 ">
-      <div className="container mx-auto max-w-screen-xl px-4 sm:px-8 py-0.05 flex items-center justify-between">
+    <header className="py-4 bg-black shadow-lg rounded-b-lg top-0 left-0 right-0 ">
+      <div className="container mx-auto max-w-screen-xl px-4 sm:px-8 py-2 flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Weavy</h1>
         <button
           className="sm:hidden block text-white hover:text-gray-300 focus:outline-none"
@@ -75,7 +75,9 @@ export default function Navbar(context: any) {
 
             {session && (
               <li>
-                <button onClick={() => signOut()}>Sign out</button>
+                <button className="text-white" onClick={() => signOut()}>
+                  Sign out
+                </button>
               </li>
             )}
           </ul>
