@@ -1,10 +1,9 @@
 import HomePage from "@/components/homeComponents/HomePage";
+import { getStoryData } from "./stories";
 
-import prisma from "@/db";
 
 export default async function Home(){
-  const storyData = await prisma.Story.findMany();
-  console.log(storyData)
+  const storyData = await getStoryData()
   return <HomePage postData={storyData}/>;
 };
 
