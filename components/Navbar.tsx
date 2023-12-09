@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { SessionProvider, useSession, signIn, signOut } from "next-auth/react";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,7 +65,11 @@ const Navbar: React.FC = () => {
             </li>
             <div>
               {status === "authenticated" ? (
-                <button onClick={() => signOut()}>Sign out</button>
+                <div>
+                  <h1>Hi {data.user.name}</h1>
+                  <img src={data.user.image} alt={`${data.user.name} photo`} />
+                  <button onClick={() => signOut()}>Sign out</button>
+                </div>
               ) : (
                 <button onClick={() => signIn("google")}>
                   Sign in with Google
@@ -79,4 +83,12 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+const NavbarWithSession = () => {
+  return (
+    <SessionProvider>
+      <Navbar />
+    </SessionProvider>
+  );
+};
+
+export default NavbarWithSession;
