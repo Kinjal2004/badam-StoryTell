@@ -2,11 +2,12 @@
 import React, { useState } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 interface Post {
   id: string;
   author: string;
-  title : string;
+  title: string;
   content: string;
   likes: number;
   tag: string;
@@ -23,31 +24,55 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
   const [posts, setPosts] = useState<Post[]>(stories);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const handleLike = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    postId: string
-  ) => {
-    event.stopPropagation();
-    const updatedPosts = posts.map((post) =>
-      post.id === postId && !post.liked
-        ? { ...post, likes: post.likes + 1, liked: true }
-        : post
-    );
-    setPosts(updatedPosts);
-  };
+  const handleLike =
+    (postId: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
 
-  const handleDislike = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    postId: string
-  ) => {
-    event.stopPropagation();
-    const updatedPosts = posts.map((post) =>
-      post.id === postId && post.liked
-        ? { ...post, likes: post.likes - 1, liked: false }
-        : post
-    );
-    setPosts(updatedPosts);
-  };
+      try {
+        const response = await axios.put("./api/updateLike", {
+          id: postId,
+        });
+
+        if (response.status === 200) {
+          setPosts((prevPosts) =>
+            prevPosts.map((post) =>
+              post.id === postId && !post.liked
+                ? { ...post, likes: post.likes + 1, liked: true }
+                : post
+            )
+          );
+        } else {
+          // Handle other status codes if needed
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+  const handleDislike =
+    (postId: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+
+      try {
+        const response = await axios.put("./api/updateDislike", {
+          id: postId,
+        });
+
+        if (response.status === 200) {
+          setPosts((prevPosts) =>
+            prevPosts.map((post) =>
+              post.id === postId && post.liked
+                ? { ...post, likes: post.likes - 1, liked: false }
+                : post
+            )
+          );
+        } else {
+          // Handle other status codes if needed
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
 
   const handleClick = (postId: string) => {
     setSelectedPost(postId === selectedPost ? null : postId);
@@ -100,7 +125,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
                   </div>
                   <div>
                     <button
-                      onClick={(event) => handleLike(event, post.id)}
+                      onClick={(event) => handleLike(post.id)(event)}
                       disabled={post.liked}
                       className={`bg-blue-500 text-white px-3 py-1 rounded-md mt-4 hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 ${
                         post.liked ? "opacity-50 cursor-not-allowed" : ""
@@ -109,7 +134,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
                       {post.liked ? "Liked" : <FaThumbsUp />}
                     </button>
                     <button
-                      onClick={(event) => handleDislike(event, post.id)}
+                      onClick={(event) => handleDislike(post.id)(event)}
                       disabled={!post.liked}
                       className={`bg-red-500 text-white px-3 py-1 rounded-md mt-4 ml-2 hover:bg-red-600 focus:outline-none focus:bg-red-600 transition duration-300 ${
                         !post.liked ? "opacity-50 cursor-not-allowed" : ""
