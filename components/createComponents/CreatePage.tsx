@@ -32,7 +32,7 @@ const CreatePage: React.FC = () => {
         );
         return;
       }
-
+      const selectedGenre = genres[0] || "";
       const response = await axios.post("./api/createStory", {
         title: title,
         story: story,
