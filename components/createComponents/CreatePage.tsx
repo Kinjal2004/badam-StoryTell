@@ -19,7 +19,6 @@ const CreatePage: React.FC = () => {
     setTitle(value);
   };
 
-  
   const handleGenreChange = (selectedGenre: string) => {
     setGenres([selectedGenre]);
     toast.success(`${selectedGenre} tag added`, { className: "green-toast" });
@@ -48,7 +47,7 @@ const CreatePage: React.FC = () => {
 
       setTitle("");
       setStory("");
-      setGenres("");
+      setGenres([]);
     } catch (err) {
       console.error("Error:", err);
     }
@@ -80,15 +79,15 @@ const CreatePage: React.FC = () => {
               "Thriller",
               "Comedy",
               "Folklore",
-            ].map((genreOption) => (
+            ].map((genre) => (
               <button
-                key={genreOption}
+                key={genre}
                 className={`mr-2 mb-2 py-2 px-4 rounded-md text-white ${
-                  genre === genreOption ? "bg-green-500" : "bg-red-500"
+                  genres.includes(genre) ? "bg-green-500" : "bg-red-500"
                 } hover:bg-blue-600 focus:outline-none focus:bg-blue-600`}
-                onClick={() => handleGenreChange(genreOption)}
+                onClick={() => handleGenreChange(genre)}
               >
-                {genreOption}
+                {genre}
               </button>
             ))}
           </div>

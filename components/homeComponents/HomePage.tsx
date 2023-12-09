@@ -8,11 +8,12 @@ interface HomePageProps {
 }
 
 interface Post {
-  id: number;
-  user: string;
+  id: string;
+  author: string;
+  title: string;
   content: string;
   likes: number;
-  tags: string[];
+  tag: string;
   liked: boolean;
 }
 

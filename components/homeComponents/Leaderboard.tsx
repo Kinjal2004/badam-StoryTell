@@ -2,11 +2,12 @@
 import React from "react";
 
 interface Post {
-  id: number;
-  user: string;
+  id: string;
+  author: string;
+  title: string;
   content: string;
   likes: number;
-  tags: string[];
+  tag: string;
   liked: boolean;
 }
 
@@ -26,7 +27,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ stories }) => {
             <div className="flex items-center space-x-4">
               <span className="font-semibold">{index + 1}.</span>
               <div>
-                <p className="text-lg font-semibold">{post.user}</p>
+                <p className="text-lg font-semibold">{post.author}</p>
                 <p className="text-gray-600">Likes: {post.likes}</p>
               </div>
             </div>

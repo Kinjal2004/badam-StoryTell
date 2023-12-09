@@ -4,11 +4,12 @@ import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 interface Post {
-  id: number;
-  user: string;
+  id: string;
+  author: string;
+  title : string;
   content: string;
   likes: number;
-  tags: string[];
+  tag: string;
   liked: boolean;
 }
 
@@ -18,13 +19,13 @@ interface ExploreFeedProps {
 
 const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
   const router = useRouter();
-  const [selectedPost, setSelectedPost] = useState<number | null>(null);
+  const [selectedPost, setSelectedPost] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>(stories);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleLike = (
     event: React.MouseEvent<HTMLButtonElement>,
-    postId: number
+    postId: string
   ) => {
     event.stopPropagation();
     const updatedPosts = posts.map((post) =>
@@ -37,7 +38,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
 
   const handleDislike = (
     event: React.MouseEvent<HTMLButtonElement>,
-    postId: number
+    postId: string
   ) => {
     event.stopPropagation();
     const updatedPosts = posts.map((post) =>
@@ -48,7 +49,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
     setPosts(updatedPosts);
   };
 
-  const handleClick = (postId: number) => {
+  const handleClick = (postId: string) => {
     setSelectedPost(postId === selectedPost ? null : postId);
     router.push(`/${postId}`);
   };
@@ -60,10 +61,8 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
   const filteredPosts = posts.filter(
     (post) =>
       post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.user.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.tags.some((tag) =>
-        tag.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      post.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.tag.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -90,19 +89,14 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
               onClick={() => handleClick(post.id)}
             >
               <div className="p-4">
-                <p className="text-lg font-semibold">{post.user}</p>
+                <p className="text-lg font-semibold">{post.title}</p>
                 <p className="text-gray-600 mt-2">{post.content}</p>
                 <p className="text-gray-500 mt-2">Likes: {post.likes}</p>
                 <div className="flex justify-between mt-4">
                   <div>
-                    {post.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                      {post.tag}
+                    </span>
                   </div>
                   <div>
                     <button
