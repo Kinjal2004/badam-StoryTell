@@ -20,31 +20,22 @@ const CreatePage: React.FC = () => {
   };
 
   const handleGenreChange = (selectedGenre: string) => {
-    const genreIndex = genres.indexOf(selectedGenre);
-    let updatedGenres: string[];
-
-    if (genreIndex === -1) {
-      updatedGenres = [...genres, selectedGenre];
-      toast.success(`${selectedGenre} tag added`, { className: "green-toast" });
-    } else {
-      updatedGenres = genres.filter((genre) => genre !== selectedGenre);
-      toast.error(`${selectedGenre} tag removed`, { className: "red-toast" });
-    }
-
-    setGenres(updatedGenres);
+    setGenres([selectedGenre]);
+    toast.success(`${selectedGenre} tag added`, { className: "green-toast" });
   };
 
   const handleSubmit = async () => {
     try {
+      const selectedGenre = genres[0] || "";
       const response = await axios.post("./api/createStory", {
         title: title,
         story: story,
-        genres: genres,
+        genres: selectedGenre,
       });
 
       console.log("Submitted Title:", title);
       console.log("Submitted Story:", story);
-      console.log("Selected Genres:", genres);
+      console.log("Selected Genre:", selectedGenre);
 
       console.log("Server Response:", response.data);
     } catch (err) {
