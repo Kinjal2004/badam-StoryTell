@@ -12,11 +12,12 @@ export async function PUT(req: Request) {
     await prisma.Story.update({
       where: {
         id: data.id,
-      },data:{
-        likes:{
-          decrement : 1,
-        }
-      }
+      },
+      data: {
+        likes: {
+          decrement: 1,
+        },
+      },
     });
     return NextResponse.json({ status: 200 });
   } catch (e) {
