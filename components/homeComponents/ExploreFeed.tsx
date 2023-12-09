@@ -87,7 +87,8 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
     (post) =>
       post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.tag.toLowerCase().includes(searchTerm.toLowerCase())
+      post.tag.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

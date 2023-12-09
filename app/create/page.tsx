@@ -1,10 +1,14 @@
+import React from "react";
+import { getServerSession } from "next-auth/next";
+import SignInButton from "@/components/Login";
 import CreatePage from "@/components/createComponents/CreatePage";
 
-const Create: React.FC = () =>{
+export default async function Create(context: any) {
+  const session = await getServerSession(context);
 
-    return(
-        <CreatePage />
-    )
+  return (
+    <div className="bg-slate-700 min-h-screen p-4">
+      {session ? <CreatePage /> : <SignInButton />}
+    </div>
+  );
 }
-
-export default Create
