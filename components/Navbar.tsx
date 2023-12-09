@@ -1,11 +1,20 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
-import { SessionProvider, useSession, signIn, signOut } from "next-auth/react";
+import React, { useState,useEffect } from "react";
+import { useSession, signIn, signOut, getSession } from "next-auth/react";
 
-const Navbar: React.FC = () => {
+export default function Navbar(context: any) {
   const [isOpen, setIsOpen] = useState(false);
-  const { data, status } = useSession();
+  const [session, setSession] = useState(null);
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      const session = await getSession(context);
+      setSession(session);
+    };
+
+    fetchData();
+  },[context])
 
   return (
     <header className="py-3 bg-gradient-to-r from-purple-600 to-indigo-600 shadow-lg rounded-b-lg fixed top-0 left-0 right-0 ">
@@ -64,12 +73,8 @@ const Navbar: React.FC = () => {
               </Link>
             </li>
             <div>
-              {status === "authenticated" ? (
-                <div>
-                  <h1>Hi {data.user.name}</h1>
-                  <img src={data.user.image} alt={`${data.user.name} photo`} />
-                  <button onClick={() => signOut()}>Sign out</button>
-                </div>
+              {session ? (
+                <button onClick={() => signOut()}>Sign out</button>
               ) : (
                 <button onClick={() => signIn("google")}>
                   Sign in with Google
@@ -81,14 +86,4 @@ const Navbar: React.FC = () => {
       </div>
     </header>
   );
-};
-
-const NavbarWithSession = () => {
-  return (
-    <SessionProvider>
-      <Navbar />
-    </SessionProvider>
-  );
-};
-
-export default NavbarWithSession;
+}
