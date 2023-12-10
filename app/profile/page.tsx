@@ -17,18 +17,19 @@ const data = [
 
 export default async function Dashboard(context: any) {
   const session = await getServerSession(context);
+  const kitten_url = "https://t4.ftcdn.net/jpg/05/51/22/65/360_F_551226555_JoynWcUCPb7U68psjX0PnNG51WF4to2E.jpg"
   return (
     <div className="bg-slate-700 min-h-screen p-4">
       {session ? (
         <div className="max-w-md mx-auto bg-white p-8 rounded-md shadow-md mt-16 mb-4">
           <div className="flex flex-col items-center mb-6">
             <img
-              src={session.user.image} // Replace with your avatar image URL
-              alt="Avatar"
+              src={session.user.image||kitten_url}
               className="w-20 h-20 rounded-full mb-4"
+              style={{ objectFit: "cover" }}
             />
+
             <h1 className="text-2xl font-bold text-slate-700">
-              {" "}
               {session.user.name}
             </h1>
             <p className="text-gray-600">{session.user.email}</p>
