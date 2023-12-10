@@ -21,7 +21,7 @@ export default function Navbar(context: any) {
   return (
     <header className="py-3 bg-black shadow-lg rounded-b-lg top-0 left-0 right-0 ">
       <div className="container mx-auto max-w-screen-xl px-4 sm:px-8 py-0 flex items-center justify-between">
-        <Image src={logo} className= "h-14 w-auto"/>
+        <Image src={logo} className= "h-14 w-auto" alt=""/>
         <button
           className="sm:hidden block text-white hover:text-gray-300 focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
