@@ -1,4 +1,3 @@
-
 import React from "react";
 import dynamic from "next/dynamic";
 import { getServerSession } from "next-auth/next";
@@ -16,7 +15,7 @@ const data = [
   { name: "Story 5", likes: 5 },
 ];
 
-export default async function Dashboard(context:any) {
+export default async function Dashboard(context: any) {
   const session = await getServerSession(context);
   return (
     <div className="bg-slate-700 min-h-screen p-4">
@@ -24,12 +23,15 @@ export default async function Dashboard(context:any) {
         <div className="max-w-md mx-auto bg-white p-8 rounded-md shadow-md mt-16 mb-4">
           <div className="flex flex-col items-center mb-6">
             <img
-              src="https://placekitten.com/200/200" // Replace with your avatar image URL
+              src={session.user.image} // Replace with your avatar image URL
               alt="Avatar"
               className="w-20 h-20 rounded-full mb-4"
             />
-            <h1 className="text-2xl font-bold text-slate-700">John Doe</h1>
-            <p className="text-gray-600">john.doe@example.com</p>
+            <h1 className="text-2xl font-bold text-slate-700">
+              {" "}
+              {session.user.name}
+            </h1>
+            <p className="text-gray-600">{session.user.email}</p>
           </div>
 
           <div className="mb-6">
@@ -37,8 +39,11 @@ export default async function Dashboard(context:any) {
               Published Stories
             </h2>
             <ul>
-              <li className="mb-2">Story 1</li>
-              <li className="mb-2">Story 2</li>
+              {data.map((story, index) => (
+                <li key={index} className="mb-2">
+                  {story.name}
+                </li>
+              ))}
             </ul>
           </div>
 
