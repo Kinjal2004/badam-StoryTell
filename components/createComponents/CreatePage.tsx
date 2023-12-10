@@ -6,10 +6,15 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const CreatePage: React.FC = () => {
+interface CreatePageProps{
+  userData : any;
+}
+
+const CreatePage: React.FC<CreatePageProps> = ({userData}) => {
   const [story, setStory] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [genres, setGenres] = useState<string[]>([]);
+  const author = userData?(userData.user.email):(null);
 
   const handleStoryChange = (value: string) => {
     setStory(value);
@@ -24,6 +29,7 @@ const CreatePage: React.FC = () => {
     toast.success(`${selectedGenre} tag added`, { className: "green-toast" });
   };
 
+
   const handleSubmit = async () => {
     try {
       if (!title || !story || genres.length === 0) {
@@ -37,11 +43,13 @@ const CreatePage: React.FC = () => {
         title: title,
         story: story,
         genres: selectedGenre,
+        author: author,
       });
 
       console.log("Submitted Title:", title);
       console.log("Submitted Story:", story);
       console.log("Selected Genre:", selectedGenre);
+      console.log("Author:",author);
 
       console.log("Server Response:", response.data);
 

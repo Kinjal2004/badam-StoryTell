@@ -14,6 +14,7 @@ export async function POST(req: Request) {
           likes : 0,
           tag : data.genres,
           liked : false,
+          author : data.author,
       }
   })
     return NextResponse.json({ status: 200 });

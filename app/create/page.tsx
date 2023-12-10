@@ -8,7 +8,7 @@ export default async function Create(context: any) {
 
   return (
     <div className="bg-slate-700 min-h-screen p-4">
-      {session ? <CreatePage /> : <SignInButton />}
+      {session ? <CreatePage userData={session}/> : <SignInButton />}
     </div>
   );
 }
