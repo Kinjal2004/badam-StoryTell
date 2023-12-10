@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { getSession } from "next-auth/react";
 
 interface Post {
   id: string;
@@ -18,11 +19,21 @@ interface ExploreFeedProps {
   stories: Post[];
 }
 
-const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
+const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories },context) => {
   const router = useRouter();
   const [selectedPost, setSelectedPost] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>(stories);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const session = await getSession(context);
+      setSession(session);
+    };
+
+    fetchData();
+  }, [context]);
 
   const handleLike =
     (postId: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -106,14 +117,21 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }) => {
         />
       </div>
       <div className="text-center">
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrEOhvWmaylNLRBQ7IvyoJh22IUBjRde8AnQ&usqp=CAU" // Replace with your cute avatar image
-          alt="Cute Avatar"
-          className="w-24 h-24 mx-auto mb-4 rounded-full"
-        />
-        <h1 className="text-black text-xl  mb-2">
-          Hey there! Move to Profile Or Create Page and Sign in
-        </h1>
+      {!session ? (
+        // Render this if the session exists
+        <>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrEOhvWmaylNLRBQ7IvyoJh22IUBjRde8AnQ&usqp=CAU"
+            alt="Cute Avatar"
+            className="w-24 h-24 mx-auto mb-4 rounded-full"
+          />
+          <h1 className="text-black text-xl mb-2">
+            Hey there! Move to Profile Or Create Page and Sign in
+          </h1>
+        </>
+      ) : (
+        <></>
+      )}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-7">
         {filteredPosts.length > 0 ? (
