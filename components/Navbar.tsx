@@ -2,6 +2,8 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
+import Image from "next/image";
+import logo from '../public/weavy-modified.gif'
 
 export default function Navbar(context: any) {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,9 +19,9 @@ export default function Navbar(context: any) {
   }, [context]);
 
   return (
-    <header className="py-4 bg-black shadow-lg rounded-b-lg top-0 left-0 right-0 ">
-      <div className="container mx-auto max-w-screen-xl px-4 sm:px-8 py-2 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">Weavy</h1>
+    <header className="py-3 bg-black shadow-lg rounded-b-lg top-0 left-0 right-0 ">
+      <div className="container mx-auto max-w-screen-xl px-4 sm:px-8 py-0 flex items-center justify-between">
+        <Image src={logo} className= "h-14 w-auto"/>
         <button
           className="sm:hidden block text-white hover:text-gray-300 focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
