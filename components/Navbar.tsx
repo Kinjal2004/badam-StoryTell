@@ -3,11 +3,12 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
 import Image from "next/image";
-import logo from '../public/weavy-modified.gif'
+import logo from "../public/weavy-modified.gif";
 
 export default function Navbar(context: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,10 +19,23 @@ export default function Navbar(context: any) {
     fetchData();
   }, [context]);
 
+  const handleSignOut = () => {
+    setShowConfirmation(true);
+  };
+
+  const cancelSignOut = () => {
+    setShowConfirmation(false);
+  };
+
+  const confirmSignOut = () => {
+    signOut();
+    setShowConfirmation(false);
+  };
+
   return (
     <header className="py-3 bg-black shadow-lg rounded-b-lg top-0 left-0 right-0 ">
       <div className="container mx-auto max-w-screen-xl px-4 sm:px-8 py-0 flex items-center justify-between">
-        <Image src={logo} className= "h-14 w-auto" alt=""/>
+        <Image src={logo} className="h-14 w-auto" alt="" />
         <button
           className="sm:hidden block text-white hover:text-gray-300 focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
@@ -77,9 +91,28 @@ export default function Navbar(context: any) {
 
             {session && (
               <li>
-                <button className="text-white" onClick={() => signOut()}>
+                <button className="text-white" onClick={handleSignOut}>
                   Sign out
                 </button>
+                {showConfirmation && (
+                  <div>
+                    <p className="text-white">
+                      Are you sure you want to sign out?
+                    </p>
+                    <button
+                      className="bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-600 mr-2"
+                      onClick={confirmSignOut}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      className="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600"
+                      onClick={cancelSignOut}
+                    >
+                      No
+                    </button>
+                  </div>
+                )}
               </li>
             )}
           </ul>

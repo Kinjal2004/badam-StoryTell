@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -19,7 +20,7 @@ interface ExploreFeedProps {
   stories: Post[];
 }
 
-const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories },context) => {
+const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }, context) => {
   const router = useRouter();
   const [selectedPost, setSelectedPost] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>(stories);
@@ -117,21 +118,21 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories },context) => {
         />
       </div>
       <div className="text-center">
-      {!session ? (
-        // Render this if the session exists
-        <>
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrEOhvWmaylNLRBQ7IvyoJh22IUBjRde8AnQ&usqp=CAU"
-            alt="Cute Avatar"
-            className="w-24 h-24 mx-auto mb-4 rounded-full"
-          />
-          <h1 className="text-black text-xl mb-2">
-            Hey there! Move to Profile Or Create Page and Sign in
-          </h1>
-        </>
-      ) : (
-        <></>
-      )}
+        {!session ? (
+          // Render this if the session exists
+          <>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrEOhvWmaylNLRBQ7IvyoJh22IUBjRde8AnQ&usqp=CAU"
+              alt="Cute Avatar"
+              className="w-24 h-24 mx-auto mb-4 rounded-full"
+            />
+            <h1 className="text-black text-xl mb-2">
+              Hey there! Move to Profile Or Create Page and Sign in
+            </h1>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-7">
         {filteredPosts.length > 0 ? (
