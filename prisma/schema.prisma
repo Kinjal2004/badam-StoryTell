@@ -1,13 +1,11 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Story {
@@ -19,4 +17,11 @@ model Story {
   liked     Boolean
   author    String   @default("arya")
   createdAt DateTime @default(now())
+}
+
+model User {
+  id           String   @id @default(uuid())
+  likedPosts   String[] @default([])
+  name         String
+  profilePhoto String
 }
