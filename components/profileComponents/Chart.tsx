@@ -28,7 +28,7 @@ const Chart: React.FC<ChartProps> = ({ chartData }) => {
               stroke="#2196F3"
               strokeWidth={3}
             />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="title" />
             <YAxis />
             <Tooltip />
           </LineChart>
