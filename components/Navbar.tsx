@@ -32,6 +32,8 @@ export default function Navbar(context: any) {
     setShowConfirmation(false);
   };
 
+  
+
   return (
     <header className="py-3 bg-black shadow-lg rounded-b-lg top-0 left-0 right-0 ">
       <div className="container mx-auto max-w-screen-xl px-4 sm:px-8 py-0 flex items-center justify-between">

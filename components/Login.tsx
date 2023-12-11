@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
-import { signIn } from "next-auth/react";
+import { signIn} from "next-auth/react";
+
 
 const SignInButton = () => {
+ 
   const handleSignIn = async () => {
-    await signIn("google"); // Sign in with Google, change provider as needed
+    await signIn("google");
   };
 
   return (

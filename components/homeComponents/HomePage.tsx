@@ -5,6 +5,7 @@ import Leaderboard from "./Leaderboard";
 
 interface HomePageProps {
   postData: Post[];
+  likeData: Like[];
 }
 
 interface Post {
@@ -17,10 +18,18 @@ interface Post {
   liked: boolean;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ postData }) => {
+interface Like{
+  id: string;
+  user: string;
+  userId: string;
+  postId : string;
+}
+
+
+const HomePage: React.FC<HomePageProps> = ({ postData, likeData }) => {
   return (
     <div className="bg-gradient-to-r from-indigo-900 via-cyan-500 to-purple-700">
-      <ExploreFeed stories={postData} />
+      <ExploreFeed stories={postData} likes={likeData}/>
       <Leaderboard stories={postData} />
     </div>
   );

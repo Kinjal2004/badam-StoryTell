@@ -16,16 +16,30 @@ interface Post {
   liked: boolean;
 }
 
-interface ExploreFeedProps {
-  stories: Post[];
+interface Like {
+  id: string;
+  user: string;
+  userId: string;
+  postId: string;
 }
 
-const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }, context) => {
+interface ExploreFeedProps {
+  stories: Post[];
+  likes: Like[];
+}
+
+const ExploreFeed: React.FC<ExploreFeedProps> = (
+  { stories, likes },
+  context
+) => {
   const router = useRouter();
   const [selectedPost, setSelectedPost] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>(stories);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [session, setSession] = useState(null);
+  const likedPost = likes.map(like => like.postId)
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +57,8 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }, context) => {
       try {
         const response = await axios.put("./api/updateLike", {
           id: postId,
+          userName: session.user.name,
+          email: session.user.email,
         });
 
         if (response.status === 200) {
@@ -53,8 +69,8 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }, context) => {
                 : post
             )
           );
+          window.location.reload()
         } else {
-          // Handle other status codes if needed
         }
       } catch (e) {
         console.log(e);
@@ -64,10 +80,11 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }, context) => {
   const handleDislike =
     (postId: string) => async (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
-
+      const targetLike = likes.find((like) => like.postId == postId);
       try {
         const response = await axios.put("./api/updateDislike", {
           id: postId,
+          likeId: targetLike.id,
         });
 
         if (response.status === 200) {
@@ -78,8 +95,8 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }, context) => {
                 : post
             )
           );
+          window.location.reload()
         } else {
-          // Handle other status codes if needed
         }
       } catch (e) {
         console.log(e);
@@ -104,7 +121,7 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }, context) => {
   );
 
   return (
-    <div className="arya">
+    <div className="a̶r̶y̶a̶(honestly, ei random naam ta kar?)Kinjal">
       <h2 className=" text-white mt-5 py-14 text-3xl font-bold text-center">
         Explore Feed
       </h2>
@@ -152,26 +169,49 @@ const ExploreFeed: React.FC<ExploreFeedProps> = ({ stories }, context) => {
                       {post.tag}
                     </span>
                   </div>
-                  <div>
-                    <button
-                      onClick={(event) => handleLike(post.id)(event)}
-                      disabled={post.liked}
-                      className={`bg-blue-500 text-white px-3 py-1 rounded-md mt-4 hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 ${
-                        post.liked ? "opacity-50 cursor-not-allowed" : ""
-                      }`}
-                    >
-                      {post.liked ? <FaThumbsUp /> : <FaThumbsUp />}
-                    </button>
-                    <button
-                      onClick={(event) => handleDislike(post.id)(event)}
-                      disabled={!post.liked}
-                      className={`bg-red-500 text-white px-3 py-1 rounded-md mt-4 ml-2 hover:bg-red-600 focus:outline-none focus:bg-red-600 transition duration-300 ${
-                        !post.liked ? "opacity-50 cursor-not-allowed" : ""
-                      }`}
-                    >
-                      {!post.liked ? <FaThumbsDown /> : <FaThumbsDown />}
-                    </button>
+                  {session ? (
+                    <div>
+                    {(() => {
+                      let liked = likedPost.includes(post.id);
+                  
+                      const handleClick = (postId, event) => {
+                        if (liked) {
+                          handleDislike(postId)(event);
+                        } else {
+                          handleLike(postId)(event);
+                        }
+                  
+                      };
+                  
+                      return (
+                        <>
+                          <button
+                            onClick={(event) => handleClick(post.id, event)}
+                            disabled={liked}
+                            className={`bg-blue-500 text-white px-3 py-1 rounded-md mt-4 hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 ${
+                              liked ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
+                          >
+                            {liked ? <FaThumbsUp /> : <FaThumbsUp />}
+                          </button>
+                          <button
+                            onClick={(event) => handleClick(post.id, event)}
+                            disabled={!liked}
+                            className={`bg-red-500 text-white px-3 py-1 rounded-md mt-4 ml-2 hover:bg-red-600 focus:outline-none focus:bg-red-600 transition duration-300 ${
+                              !liked ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
+                          >
+                            {!liked ? <FaThumbsDown /> : <FaThumbsDown />}
+                          </button>
+                        </>
+                      );
+                    })()}
                   </div>
+                  
+                  
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </div>
